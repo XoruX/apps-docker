@@ -36,6 +36,7 @@ RUN apk update && apk add \
     ttf-dejavu \
     vim \
     rsyslog \
+    tzdata \
     sudo \
     less \
     ed \
@@ -47,7 +48,7 @@ RUN apk update && apk add \
 
 # setup default user
 RUN addgroup -S lpar2rrd 
-RUN adduser -S lpar2rrd -G lpar2rrd -s /bin/bash
+RUN adduser -S lpar2rrd -G lpar2rrd -u 1005 -s /bin/bash
 RUN echo 'lpar2rrd:xorux4you' | chpasswd
 RUN echo '%lpar2rrd ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 RUN mkdir /home/stor2rrd \
@@ -84,7 +85,7 @@ COPY configs/crontab /var/spool/cron/crontabs/lpar2rrd
 RUN chmod 600 /var/spool/cron/crontabs/lpar2rrd && chown lpar2rrd.cron /var/spool/cron/crontabs/lpar2rrd
 
 COPY tz.pl /var/www/localhost/cgi-bin/tz.pl
-RUN chmod +x /usr/lib/cgi-bin/tz.pl
+RUN chmod +x /var/www/localhost/cgi-bin/tz.pl
 
 # download tarballs from SF
 ADD http://downloads.sourceforge.net/project/lpar2rrd/lpar2rrd/$LPAR_SF_DIR/lpar2rrd-$LPAR_VER.tar /home/lpar2rrd/
@@ -97,11 +98,13 @@ RUN tar xvf lpar2rrd-$LPAR_VER.tar
 WORKDIR /home/stor2rrd
 RUN tar xvf stor2rrd-$STOR_VER.tar
 
-RUN chown -R lpar2rrd /home/lpar2rrd /home/stor2rrd
-
 COPY supervisord.conf /etc/
 COPY startup.sh /startup.sh
 RUN chmod +x /startup.sh
+
+RUN mkdir -p /home/lpar2rrd/lpar2rrd /home/stor2rrd/stor2rrd
+RUN chown -R lpar2rrd /home/lpar2rrd /home/stor2rrd
+VOLUME [ "/home/lpar2rrd/lpar2rrd", "/home/stor2rrd/stor2rrd" ]
 
 ENTRYPOINT [ "/startup.sh" ]
 
