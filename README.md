@@ -1,7 +1,7 @@
 # XoruX Docker Image
 This is Docker image of [XoruX](https://www.xorux.com) applications - [LPAR2RRD](http://www.lpar2rrd.com) & [STOR2RRD](http://www.stor2rrd.com).
 
-This docker image is based on the latest official [Alpine Linux](https://hub.docker.com/_/alpine) with all necessary dependencies installed.
+It's based on the latest official [Alpine Linux](https://hub.docker.com/_/alpine) with all necessary dependencies installed.
 
 Quick start:
 

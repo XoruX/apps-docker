@@ -6,7 +6,7 @@ if [ -f /firstrun ]; then
 	echo "*.* @$SYSLOG" >> /etc/rsyslog.conf
 
 	# Start syslog server to see something
-	/etc/init.d/rsyslog start
+	# /usr/sbin/rsyslogd
 
 	echo "Running for first time.. need to configure..."
 
@@ -52,6 +52,9 @@ EOF
 
 	cp -p /home/stor2rrd/stor2rrd/html/.htaccess /home/stor2rrd/stor2rrd/www
 	cp -p /home/stor2rrd/stor2rrd/html/.htaccess /home/stor2rrd/stor2rrd/stor2rrd-cgi
+        
+        # initialize lpar2rrd's crontab
+        crontab -u lpar2rrd /var/spool/cron/crontabs/lpar2rrd
 
 	# clean up
 	rm /firstrun

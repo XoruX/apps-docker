@@ -15,6 +15,7 @@ RUN apk update && apk add \
     bash \
     wget \
     supervisor \
+    busybox-suid \
     apache2 \
     bc \
     net-snmp \
@@ -82,7 +83,7 @@ ENV STOR_VER "$STOR_VER_MAJ$STOR_VER_MIN"
 EXPOSE 22 80 443 8162
 
 COPY configs/crontab /var/spool/cron/crontabs/lpar2rrd
-RUN chmod 600 /var/spool/cron/crontabs/lpar2rrd && chown lpar2rrd.cron /var/spool/cron/crontabs/lpar2rrd
+RUN chmod 640 /var/spool/cron/crontabs/lpar2rrd && chown lpar2rrd.cron /var/spool/cron/crontabs/lpar2rrd
 
 COPY tz.pl /var/www/localhost/cgi-bin/tz.pl
 RUN chmod +x /var/www/localhost/cgi-bin/tz.pl
