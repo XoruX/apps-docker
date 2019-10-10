@@ -24,8 +24,8 @@ or later in web UI.
 
 On first run:
 
-	- visit web GUI on port 80 (mapped to host port 8080 in example)
-	- continue to LPAR2RRD and use admin/admin as username/password
-	- or continue to STOR2RRD and use admin/admin as username/password
+- visit web GUI on port 80 (mapped to host port 8080 in example)
+- continue to LPAR2RRD and use admin/admin as username/password
+- or continue to STOR2RRD and use admin/admin as username/password
 
 You can connect via SSH on port 22 (exposed), username **lpar2rrd**, password **xorux4you** - please change it ASAP.
