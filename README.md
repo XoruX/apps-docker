@@ -12,11 +12,11 @@ or better
     XORUX_DIR=/srv/xorux   # select any directory with rwx owner permissions
     mkdir -p $XORUX_DIR/lpar2rrd $XORUX_DIR/stor2rrd
     chown 1005 $XORUX_DIR/lpar2rrd $XORUX_DIR/stor2rrd   # uid of user lpar2rrd inside the container 
-    docker run \ 
+    docker run \
         --detach \
-        --name XoruX \ 
+        --name XoruX \
         --volume $XORUX_DIR/lpar2rrd:/home/lpar2rrd/lpar2rrd \
-        --volume $XORUX_DIR/stor2rrd:/home/stor2rrd/stor2rrd \ 
+        --volume $XORUX_DIR/stor2rrd:/home/stor2rrd/stor2rrd \
         --publish 8080:80 \
         xorux/apps
 
@@ -25,12 +25,12 @@ If you run container with volume params, it will use XORUX_DIR to store all data
 You can set container timezone via env variable TIMEZONE in docker run command:
 
     docker run \
-        --detach \ 
-        --name XoruX 
+        --detach \
+        --name XoruX \
         --volume $XORUX_DIR/lpar2rrd:/home/lpar2rrd/lpar2rrd \
         --volume $XORUX_DIR/stor2rrd:/home/stor2rrd/stor2rrd \
         --env TIMEZONE="Europe/Prague" \
-        --publish 8080:80 \ 
+        --publish 8080:80 \
         xorux/apps
 
 or later in web UI.
