@@ -41,11 +41,13 @@ RUN apk update && apk add \
     sudo \
     less \
     ed \
-    sharutils
+    sharutils \
+    make \
+    perl-dev \
+    perl-app-cpanminus
 
-#RUN apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/main \
-#    ed \
-#    sharutils
+# perl-font-ttf fron testing repo (needed for PDF reports)
+RUN apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/testing perl-font-ttf
 
 # setup default user
 RUN addgroup -S lpar2rrd 
@@ -98,6 +100,9 @@ RUN tar xvf lpar2rrd-$LPAR_VER.tar
 
 WORKDIR /home/stor2rrd
 RUN tar xvf stor2rrd-$STOR_VER.tar
+
+# install perl PDF API from CPAN
+RUN cpanm -l /usr -n PDF::API2
 
 COPY supervisord.conf /etc/
 COPY startup.sh /startup.sh
