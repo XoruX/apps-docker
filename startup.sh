@@ -28,10 +28,15 @@ EOF
 	ssh-keygen -A
 
 	# setup products
-	su - lpar2rrd -c "cd /home/lpar2rrd/lpar2rrd-$LPAR_VER/; yes '' | ./install.sh"
+        if [ -d "/home/lpar2rrd/lpar2rrd/bin" ]; then
+            ITYPE="update.sh"
+        else
+            ITYPE="install.sh"
+        fi
+	su - lpar2rrd -c "cd /home/lpar2rrd/lpar2rrd-$LPAR_VER/; yes '' | ./$ITYPE"
 	rm -r /home/lpar2rrd/lpar2rrd-$LPAR_VER
-	su - lpar2rrd -c "cd /home/stor2rrd/stor2rrd-$STOR_VER/; yes '' | ./install.sh"
-	rm -r /home/lpar2rrd/stor2rrd-$STOR_VER
+	su - lpar2rrd -c "cd /home/stor2rrd/stor2rrd-$STOR_VER/; yes '' | ./$ITYPE"
+	rm -r /home/stor2rrd/stor2rrd-$STOR_VER
 
 	# enable LPAR2RRD daemon on default port (8162)
 	sed -i "s/LPAR2RRD_AGENT_DAEMON\=0/LPAR2RRD_AGENT_DAEMON\=1/g" /home/lpar2rrd/lpar2rrd/etc/lpar2rrd.cfg

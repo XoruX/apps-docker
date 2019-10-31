@@ -49,6 +49,9 @@ RUN apk update && apk add \
 # perl-font-ttf fron testing repo (needed for PDF reports)
 RUN apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/testing perl-font-ttf
 
+# install perl PDF API from CPAN
+RUN cpanm -l /usr -n PDF::API2
+
 # setup default user
 RUN addgroup -S lpar2rrd 
 RUN adduser -S lpar2rrd -G lpar2rrd -u 1005 -s /bin/bash
@@ -71,10 +74,10 @@ ADD htdocs.tar.gz /var/www/localhost
 RUN chown -R apache.apache /var/www/localhost
 
 # add product installations
-ENV LPAR_VER_MAJ "6.10"
+ENV LPAR_VER_MAJ "6.11"
 ENV LPAR_VER_MIN ""
 ENV LPAR_SF_DIR "6.10"
-ENV STOR_VER_MAJ "2.60"
+ENV STOR_VER_MAJ "2.61"
 ENV STOR_VER_MIN ""
 ENV STOR_SF_DIR "2.60"
 
@@ -91,8 +94,12 @@ COPY tz.pl /var/www/localhost/cgi-bin/tz.pl
 RUN chmod +x /var/www/localhost/cgi-bin/tz.pl
 
 # download tarballs from SF
-ADD http://downloads.sourceforge.net/project/lpar2rrd/lpar2rrd/$LPAR_SF_DIR/lpar2rrd-$LPAR_VER.tar /home/lpar2rrd/
-ADD http://downloads.sourceforge.net/project/stor2rrd/stor2rrd/$STOR_SF_DIR/stor2rrd-$STOR_VER.tar /home/stor2rrd/
+# ADD http://downloads.sourceforge.net/project/lpar2rrd/lpar2rrd/$LPAR_SF_DIR/lpar2rrd-$LPAR_VER.tar /home/lpar2rrd/
+# ADD http://downloads.sourceforge.net/project/stor2rrd/stor2rrd/$STOR_SF_DIR/stor2rrd-$STOR_VER.tar /home/stor2rrd/
+
+# download tarballs from official website
+ADD https://www.lpar2rrd.com/download-static/lpar2rrd/lpar2rrd-$LPAR_VER.tar /home/lpar2rrd/
+ADD https://www.stor2rrd.com/download-static/stor2rrd/stor2rrd-$STOR_VER.tar /home/stor2rrd/
 
 # extract tarballs
 WORKDIR /home/lpar2rrd
@@ -100,9 +107,6 @@ RUN tar xvf lpar2rrd-$LPAR_VER.tar
 
 WORKDIR /home/stor2rrd
 RUN tar xvf stor2rrd-$STOR_VER.tar
-
-# install perl PDF API from CPAN
-RUN cpanm -l /usr -n PDF::API2
 
 COPY supervisord.conf /etc/
 COPY startup.sh /startup.sh
