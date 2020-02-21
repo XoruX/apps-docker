@@ -19,6 +19,7 @@ RUN apk update && apk add \
     apache2 \
     bc \
     net-snmp \
+    net-snmp-tools \
     rrdtool \
     perl-rrd \
     perl-xml-simple \
@@ -28,13 +29,16 @@ RUN apk update && apk add \
     perl-lwp-protocol-https \
     perl-date-format \
     perl-dbd-pg \
-    # libpdf-api2-perl \
+    perl-io-tty \
+    perl-want \
     net-tools \
+    bind-tools \
     libxml2-utils \
     # snmp-mibs-downloader \
     openssh-client \
     openssh-server \
     ttf-dejavu \
+    graphviz \
     vim \
     rsyslog \
     tzdata \
@@ -48,6 +52,7 @@ RUN apk update && apk add \
 
 # perl-font-ttf fron testing repo (needed for PDF reports)
 RUN apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/testing perl-font-ttf
+RUN apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/testing sblim-wbemcli
 
 # install perl PDF API from CPAN
 RUN cpanm -l /usr -n PDF::API2
@@ -72,14 +77,15 @@ RUN sed -i 's/^User apache/User lpar2rrd/g' /etc/apache2/httpd.conf
 # adding web root
 ADD htdocs.tar.gz /var/www/localhost
 RUN chown -R apache.apache /var/www/localhost
+RUN chmod a+w /var/www/localhost/htdocs/js/env.js
 
 # add product installations
-ENV LPAR_VER_MAJ "6.11"
+ENV LPAR_VER_MAJ "6.15"
 ENV LPAR_VER_MIN ""
-ENV LPAR_SF_DIR "6.10"
-ENV STOR_VER_MAJ "2.61"
+ENV LPAR_SF_DIR "6.15"
+ENV STOR_VER_MAJ "2.70"
 ENV STOR_VER_MIN ""
-ENV STOR_SF_DIR "2.60"
+ENV STOR_SF_DIR "2.70"
 
 ENV LPAR_VER "$LPAR_VER_MAJ$LPAR_VER_MIN"
 ENV STOR_VER "$STOR_VER_MAJ$STOR_VER_MIN"

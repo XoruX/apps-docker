@@ -55,6 +55,9 @@ if (exists $PAR{cmd} && $PAR{cmd} eq "set") {   ### remove selected connection
         $conn =~ /zone: (.*\/[^\s]*)/;
         &result(1, "$conn", $1);
       }
+      open my $fh, '>', "/var/www/localhost/htdocs/js/env.js";
+      print $fh "env = { timezone_selected: true }";
+      close $fh;
     } else {
       my $arg = sprintf("command exited with value %d", $? >> 8);
       &result(0, "$arg\n$conn");
