@@ -85,9 +85,9 @@ RUN chmod a+w /var/www/localhost/htdocs/js/env.js
 ENV LPAR_VER_MAJ "6.16"
 ENV LPAR_VER_MIN ""
 ENV LPAR_SF_DIR "6.16"
-ENV STOR_VER_MAJ "2.71"
+ENV STOR_VER_MAJ "2.80"
 ENV STOR_VER_MIN ""
-ENV STOR_SF_DIR "2.71"
+ENV STOR_SF_DIR "2.80"
 
 ENV LPAR_VER "$LPAR_VER_MAJ$LPAR_VER_MIN"
 ENV STOR_VER "$STOR_VER_MAJ$STOR_VER_MIN"
@@ -106,8 +106,8 @@ RUN chmod +x /var/www/localhost/cgi-bin/tz.pl
 # ADD http://downloads.sourceforge.net/project/stor2rrd/stor2rrd/$STOR_SF_DIR/stor2rrd-$STOR_VER.tar /home/stor2rrd/
 
 # download tarballs from official website
-ADD https://www.lpar2rrd.com/download-static/lpar2rrd/lpar2rrd-$LPAR_VER.tar /home/lpar2rrd/
-ADD https://www.stor2rrd.com/download-static/stor2rrd/stor2rrd-$STOR_VER.tar /home/stor2rrd/
+ADD https://lpar2rrd.com/download-static/lpar2rrd-$LPAR_VER.tar /home/lpar2rrd/
+ADD https://stor2rrd.com/download/stor2rrd-$STOR_VER.tar /home/stor2rrd/
 
 # extract tarballs
 WORKDIR /home/lpar2rrd
