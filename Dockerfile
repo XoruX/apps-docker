@@ -107,7 +107,7 @@ RUN chmod +x /var/www/localhost/cgi-bin/tz.pl
 
 # download tarballs from official website
 ADD https://lpar2rrd.com/download-static/lpar2rrd-$LPAR_VER.tar /home/lpar2rrd/
-ADD https://stor2rrd.com/download/stor2rrd-$STOR_VER.tar /home/stor2rrd/
+ADD https://stor2rrd.com/download-static/stor2rrd-$STOR_VER.tar /home/stor2rrd/
 
 # extract tarballs
 WORKDIR /home/lpar2rrd
