@@ -82,12 +82,12 @@ RUN chown -R apache.apache /var/www/localhost
 RUN chmod a+w /var/www/localhost/htdocs/js/env.js
 
 # add product installations
-ENV LPAR_VER_MAJ "6.16"
+ENV LPAR_VER_MAJ "6.20"
 ENV LPAR_VER_MIN ""
-ENV LPAR_SF_DIR "6.16"
-ENV STOR_VER_MAJ "2.80"
+ENV LPAR_SF_DIR "6.20"
+ENV STOR_VER_MAJ "2.81"
 ENV STOR_VER_MIN ""
-ENV STOR_SF_DIR "2.80"
+ENV STOR_SF_DIR "2.81"
 
 ENV LPAR_VER "$LPAR_VER_MAJ$LPAR_VER_MIN"
 ENV STOR_VER "$STOR_VER_MAJ$STOR_VER_MIN"
