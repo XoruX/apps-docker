@@ -49,6 +49,7 @@ RUN apk update && apk add \
     ed \
     sharutils \
     make \
+    tar \
     perl-dev \
     perl-app-cpanminus
 
