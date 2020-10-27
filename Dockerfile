@@ -84,7 +84,7 @@ RUN chmod a+w /var/www/localhost/htdocs/js/env.js
 
 # add product installations
 ENV LPAR_VER_MAJ "7.00"
-ENV LPAR_VER_MIN ""
+ENV LPAR_VER_MIN "-2"
 ENV LPAR_SF_DIR "7.00"
 ENV STOR_VER_MAJ "7.00"
 ENV STOR_VER_MIN ""
